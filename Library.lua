@@ -811,47 +811,79 @@ function Library:CreateWindow(Config)
     SearchOuterCorner.CornerRadius = UDim.new(0, 5)
     SearchOuterCorner.Parent = SearchOuterFrame
 
-    local SearchBar = Instance.new("Frame")
-    SearchBar.Name = "SearchBar"
-    SearchBar.Size = UDim2.fromOffset(300, 34)
-    SearchBar.Position = UDim2.new(1, -360, 0, 14)
-    SearchBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    SearchBar.BackgroundTransparency = 0.5
-    SearchBar.BorderSizePixel = 0
-    SearchBar.ZIndex = 7
-    SearchBar.Parent = TopBar
+    -- Search bar
+local SearchBar = Instance.new("Frame")
+SearchBar.Name = "SearchBar"
+SearchBar.Size = UDim2.fromOffset(300, 34)
+SearchBar.Position = UDim2.new(1, -360, 0, 14)
+SearchBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+SearchBar.BackgroundTransparency = 0.5
+SearchBar.BorderSizePixel = 0
+SearchBar.ZIndex = 7
+SearchBar.Parent = TopBar
 
-    local SearchGradient = Instance.new("UIGradient")
-    SearchGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(102, 0, 255)),
-        ColorSequenceKeypoint.new(0.45, Color3.fromRGB(0, 0, 0)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
-    })
-    SearchGradient.Rotation = 90
-    SearchGradient.Parent = SearchBar
+-- Search police gradient
+local SearchGradient = Instance.new("UIGradient")
+SearchGradient.Name = "PoliceLightGradient"
+SearchGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(102, 0, 255)),
+    ColorSequenceKeypoint.new(0.45, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+})
+SearchGradient.Rotation = 90
+SearchGradient.Parent = SearchBar
 
-    local SearchOutline = Instance.new("UIStroke")
-    SearchOutline.Thickness = 1
-    SearchOutline.Color = Color3.fromRGB(85, 85, 85)
-    SearchOutline.Parent = SearchBar
+-- Inner sharp outline
+local SearchOutline = Instance.new("UIStroke")
+SearchOutline.Name = "Outline"
+SearchOutline.Thickness = 1
+SearchOutline.Color = Color3.fromRGB(85, 85, 85)
+SearchOutline.Transparency = 0
+SearchOutline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+SearchOutline.LineJoinMode = Enum.LineJoinMode.Miter
+SearchOutline.Parent = SearchBar
 
-    local SearchBox = Instance.new("TextBox")
-    SearchBox.Name = "SearchBox"
-    SearchBox.Size = UDim2.new(1, -16, 1, 0)
-    SearchBox.Position = UDim2.fromOffset(8, 0)
-    SearchBox.BackgroundTransparency = 1
-    SearchBox.BorderSizePixel = 0
-    SearchBox.ClearTextOnFocus = false
-    SearchBox.PlaceholderText = "Search..."
-    SearchBox.PlaceholderColor3 = Color3.fromRGB(105, 105, 105)
-    SearchBox.Text = ""
-    SearchBox.TextColor3 = Color3.fromRGB(190, 190, 190)
-    SearchBox.TextSize = 16
-    SearchBox.FontFace = Font.new("rbxassetid://12187376739")
-    SearchBox.TextXAlignment = Enum.TextXAlignment.Left
-    SearchBox.TextYAlignment = Enum.TextYAlignment.Center
-    SearchBox.ZIndex = 8
-    SearchBox.Parent = SearchBar
+-- Outer rounded outline
+local SearchOuterFrame = Instance.new("Frame")
+SearchOuterFrame.Name = "SearchOuterFrame"
+SearchOuterFrame.Size = UDim2.fromOffset(304, 38)
+SearchOuterFrame.Position = UDim2.new(1, -362, 0, 12)
+SearchOuterFrame.BackgroundTransparency = 1
+SearchOuterFrame.BorderSizePixel = 0
+SearchOuterFrame.ZIndex = 6
+SearchOuterFrame.Parent = TopBar
+
+local SearchOuterCorner = Instance.new("UICorner")
+SearchOuterCorner.CornerRadius = UDim.new(0, 5)
+SearchOuterCorner.Parent = SearchOuterFrame
+
+local SearchOuterOutline = Instance.new("UIStroke")
+SearchOuterOutline.Name = "RoundedOutline"
+SearchOuterOutline.Thickness = 1
+SearchOuterOutline.Color = Color3.fromRGB(35, 0, 88)
+SearchOuterOutline.Transparency = 0
+SearchOuterOutline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+SearchOuterOutline.LineJoinMode = Enum.LineJoinMode.Round
+SearchOuterOutline.Parent = SearchOuterFrame
+
+-- Search box
+local SearchBox = Instance.new("TextBox")
+SearchBox.Name = "SearchBox"
+SearchBox.Size = UDim2.new(1, -16, 1, 0)
+SearchBox.Position = UDim2.fromOffset(8, 0)
+SearchBox.BackgroundTransparency = 1
+SearchBox.BorderSizePixel = 0
+SearchBox.ClearTextOnFocus = false
+SearchBox.PlaceholderText = "Search..."
+SearchBox.PlaceholderColor3 = Color3.fromRGB(105, 105, 105)
+SearchBox.Text = ""
+SearchBox.TextColor3 = Color3.fromRGB(190, 190, 190)
+SearchBox.TextSize = 16
+SearchBox.FontFace = Font.new("rbxassetid://12187376739")
+SearchBox.TextXAlignment = Enum.TextXAlignment.Left
+SearchBox.TextYAlignment = Enum.TextYAlignment.Center
+SearchBox.ZIndex = 8
+SearchBox.Parent = SearchBar
 
     ----------------------------------------------------------------
     -- BOTTOM BAR
