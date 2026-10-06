@@ -86,14 +86,14 @@ function Library:CreateWindow(Config)
     MainStroke.Color = Color3.fromRGB(85, 85, 85)
     MainStroke.Parent = Main
 
-    CreateSharpOutline(
-        Main,
-        "SharpOuterOutline",
-        Color3.fromRGB(25, 25, 25),
-        1,
-        2
-    )
-
+    local MainOuterOutline = Instance.new("UIStroke")
+MainOuterOutline.Name = "OuterSharpOutline"
+MainOuterOutline.Thickness = 1
+MainOuterOutline.Color = Color3.fromRGB(15, 15, 15)
+MainOuterOutline.Transparency = 0
+MainOuterOutline.LineJoinMode = Enum.LineJoinMode.Miter
+MainOuterOutline.Parent = Main
+    
     ----------------------------------------------------------------
     -- SIDEBAR
     ----------------------------------------------------------------
