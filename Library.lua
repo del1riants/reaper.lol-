@@ -16,8 +16,31 @@ function Library:CreateWindow(Config)
     local WindowName = Config.Name or "REAPER.LOL"
     local GameName = Config.Game or "UNKNOWN"
 
-    -- ScreenGui
+    ----------------------------------------------------------------
+    -- HELPERS
+    ----------------------------------------------------------------
+
+    local function CreateSharpOutline(Parent, Name, Color, Thickness, ZIndex)
+        local Outline = Instance.new("Frame")
+
+        Outline.Name = Name or "SharpOutline"
+        Outline.Size = UDim2.new(1, 0, 1, 0)
+        Outline.Position = UDim2.fromOffset(0, 0)
+        Outline.BackgroundTransparency = 1
+        Outline.BorderSizePixel = Thickness or 1
+        Outline.BorderColor3 = Color or Color3.fromRGB(35, 35, 35)
+        Outline.ZIndex = ZIndex or (Parent.ZIndex + 1)
+        Outline.Parent = Parent
+
+        return Outline
+    end
+
+    ----------------------------------------------------------------
+    -- SCREEN GUI
+    ----------------------------------------------------------------
+
     local ScreenGui = Instance.new("ScreenGui")
+
     ScreenGui.Name = "BlankUI"
     ScreenGui.ResetOnSpawn = false
     ScreenGui.DisplayOrder = 999999
@@ -26,8 +49,12 @@ function Library:CreateWindow(Config)
     local UIParent = gethui and gethui() or PlayerGui
     ScreenGui.Parent = UIParent
 
-    -- Main window
+    ----------------------------------------------------------------
+    -- MAIN WINDOW
+    ----------------------------------------------------------------
+
     local Main = Instance.new("Frame")
+
     Main.Name = "Main"
     Main.Size = UDim2.fromOffset(550, 577)
     Main.Position = UDim2.new(0.5, -312, 0.5, -328)
@@ -37,6 +64,7 @@ function Library:CreateWindow(Config)
     Main.Parent = ScreenGui
 
     local MainGradient = Instance.new("UIGradient")
+
     MainGradient.Name = "PoliceLightGradient"
     MainGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(153, 0, 255)),
@@ -47,17 +75,31 @@ function Library:CreateWindow(Config)
     MainGradient.Parent = Main
 
     local MainCorner = Instance.new("UICorner")
+
     MainCorner.CornerRadius = UDim.new(0, 6)
     MainCorner.Parent = Main
 
     local MainStroke = Instance.new("UIStroke")
+
     MainStroke.Name = "OuterOutline"
     MainStroke.Thickness = 1
     MainStroke.Color = Color3.fromRGB(85, 85, 85)
     MainStroke.Parent = Main
 
-    -- Sidebar
+    CreateSharpOutline(
+        Main,
+        "SharpOuterOutline",
+        Color3.fromRGB(25, 25, 25),
+        1,
+        2
+    )
+
+    ----------------------------------------------------------------
+    -- SIDEBAR
+    ----------------------------------------------------------------
+
     local SideBar = Instance.new("Frame")
+
     SideBar.Name = "SideBar"
     SideBar.Size = UDim2.new(0, 94, 1, 0)
     SideBar.Position = UDim2.new(0, 0, 0, 0)
@@ -67,6 +109,7 @@ function Library:CreateWindow(Config)
     SideBar.Parent = Main
 
     local SidebarTexture = Instance.new("ImageLabel")
+
     SidebarTexture.Name = "SidebarTexture"
     SidebarTexture.Size = UDim2.new(1, 0, 1, 0)
     SidebarTexture.BackgroundTransparency = 1
@@ -77,6 +120,7 @@ function Library:CreateWindow(Config)
     SidebarTexture.Parent = SideBar
 
     local SideSeparator = Instance.new("Frame")
+
     SideSeparator.Name = "SideSeparator"
     SideSeparator.Size = UDim2.new(0, 1, 1, -63)
     SideSeparator.Position = UDim2.new(1, -1, 0, 63)
@@ -86,6 +130,7 @@ function Library:CreateWindow(Config)
     SideSeparator.Parent = SideBar
 
     local SidebarBottomImage = Instance.new("ImageLabel")
+
     SidebarBottomImage.Name = "SidebarBottomImage"
     SidebarBottomImage.Size = UDim2.fromOffset(111, 66)
     SidebarBottomImage.Position = UDim2.new(0.5, -55, 1, -35)
@@ -96,8 +141,12 @@ function Library:CreateWindow(Config)
     SidebarBottomImage.ZIndex = 20
     SidebarBottomImage.Parent = SideBar
 
-    -- Main gray panel
+    ----------------------------------------------------------------
+    -- MAIN GRAY PANEL
+    ----------------------------------------------------------------
+
     local MainGrayPanel = Instance.new("Frame")
+
     MainGrayPanel.Name = "MainGrayPanel"
     MainGrayPanel.Size = UDim2.new(1, -105, 1, -97)
     MainGrayPanel.Position = UDim2.new(0, 100, 0, 68)
@@ -108,10 +157,12 @@ function Library:CreateWindow(Config)
     MainGrayPanel.Parent = Main
 
     local MainGrayPanelCorner = Instance.new("UICorner")
+
     MainGrayPanelCorner.CornerRadius = UDim.new(0, 4)
     MainGrayPanelCorner.Parent = MainGrayPanel
 
     local MainGrayPanelGradient = Instance.new("UIGradient")
+
     MainGrayPanelGradient.Name = "PoliceLightGradient"
     MainGrayPanelGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
@@ -122,13 +173,26 @@ function Library:CreateWindow(Config)
     MainGrayPanelGradient.Parent = MainGrayPanel
 
     local MainGrayPanelStroke = Instance.new("UIStroke")
+
     MainGrayPanelStroke.Name = "Outline"
     MainGrayPanelStroke.Thickness = 1
     MainGrayPanelStroke.Color = Color3.fromRGB(85, 85, 85)
     MainGrayPanelStroke.Parent = MainGrayPanel
 
-    -- Sidebar tab panel
+    CreateSharpOutline(
+        MainGrayPanel,
+        "SharpOutline",
+        Color3.fromRGB(35, 35, 35),
+        1,
+        3
+    )
+
+    ----------------------------------------------------------------
+    -- SIDEBAR TAB PANEL
+    ----------------------------------------------------------------
+
     local GrayPanel = Instance.new("Frame")
+
     GrayPanel.Name = "GrayPanel"
     GrayPanel.Size = UDim2.new(0, 78, 1, -101)
     GrayPanel.Position = UDim2.new(0, 8, 0, 90)
@@ -139,10 +203,12 @@ function Library:CreateWindow(Config)
     GrayPanel.Parent = Main
 
     local GrayPanelCorner = Instance.new("UICorner")
+
     GrayPanelCorner.CornerRadius = UDim.new(0, 4)
     GrayPanelCorner.Parent = GrayPanel
 
     local GrayPanelGradient = Instance.new("UIGradient")
+
     GrayPanelGradient.Name = "PoliceLightGradient"
     GrayPanelGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
@@ -153,10 +219,19 @@ function Library:CreateWindow(Config)
     GrayPanelGradient.Parent = GrayPanel
 
     local GrayPanelStroke = Instance.new("UIStroke")
+
     GrayPanelStroke.Name = "Outline"
     GrayPanelStroke.Thickness = 1
     GrayPanelStroke.Color = Color3.fromRGB(85, 85, 85)
     GrayPanelStroke.Parent = GrayPanel
+
+    CreateSharpOutline(
+        GrayPanel,
+        "SharpOutline",
+        Color3.fromRGB(35, 35, 35),
+        1,
+        6
+    )
 
     ----------------------------------------------------------------
     -- TAB SYSTEM
@@ -166,6 +241,7 @@ function Library:CreateWindow(Config)
     local CurrentTab = nil
 
     local TabContainer = Instance.new("ScrollingFrame")
+
     TabContainer.Name = "TabContainer"
     TabContainer.Size = UDim2.new(1, -10, 1, -10)
     TabContainer.Position = UDim2.fromOffset(5, 5)
@@ -177,6 +253,7 @@ function Library:CreateWindow(Config)
     TabContainer.Parent = GrayPanel
 
     local TabLayout = Instance.new("UIListLayout")
+
     TabLayout.Padding = UDim.new(0, 5)
     TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -199,6 +276,7 @@ function Library:CreateWindow(Config)
         Tab.Controls = {}
 
         local TabButton = Instance.new("TextButton")
+
         TabButton.Name = Name .. "Tab"
         TabButton.Size = UDim2.new(1, -4, 0, 32)
         TabButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -213,15 +291,26 @@ function Library:CreateWindow(Config)
         TabButton.Parent = TabContainer
 
         local TabCorner = Instance.new("UICorner")
+
         TabCorner.CornerRadius = UDim.new(0, 4)
         TabCorner.Parent = TabButton
 
         local TabStroke = Instance.new("UIStroke")
+
         TabStroke.Thickness = 1
         TabStroke.Color = Color3.fromRGB(85, 85, 85)
         TabStroke.Parent = TabButton
 
+        CreateSharpOutline(
+            TabButton,
+            "SharpOutline",
+            Color3.fromRGB(30, 30, 30),
+            1,
+            8
+        )
+
         local Page = Instance.new("ScrollingFrame")
+
         Page.Name = Name .. "Page"
         Page.Size = UDim2.new(1, -10, 1, -10)
         Page.Position = UDim2.fromOffset(5, 5)
@@ -235,11 +324,13 @@ function Library:CreateWindow(Config)
         Page.Parent = MainGrayPanel
 
         local PageLayout = Instance.new("UIListLayout")
+
         PageLayout.Padding = UDim.new(0, 8)
         PageLayout.SortOrder = Enum.SortOrder.LayoutOrder
         PageLayout.Parent = Page
 
         local PagePadding = Instance.new("UIPadding")
+
         PagePadding.PaddingLeft = UDim.new(0, 8)
         PagePadding.PaddingRight = UDim.new(0, 8)
         PagePadding.PaddingTop = UDim.new(0, 8)
@@ -262,8 +353,10 @@ function Library:CreateWindow(Config)
 
             for _, ExistingTab in pairs(Tabs) do
                 ExistingTab.Page.Visible = false
+
                 ExistingTab.Button.BackgroundColor3 =
                     Color3.fromRGB(45, 45, 45)
+
                 ExistingTab.Button.TextColor3 =
                     Color3.fromRGB(160, 160, 160)
             end
@@ -297,6 +390,7 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local SidebarTitle = Instance.new("TextLabel")
+
     SidebarTitle.Name = "SidebarTitle"
     SidebarTitle.Size = UDim2.fromOffset(91, 94)
     SidebarTitle.Position = UDim2.fromOffset(0, 30)
@@ -312,12 +406,14 @@ function Library:CreateWindow(Config)
     SidebarTitle.Parent = Main
 
     local SidebarTitleStroke = Instance.new("UIStroke")
+
     SidebarTitleStroke.Name = "TextStroke"
     SidebarTitleStroke.Thickness = 1
     SidebarTitleStroke.Color = Color3.fromRGB(61, 0, 110)
     SidebarTitleStroke.Parent = SidebarTitle
 
     local SidebarTitleGlow = Instance.new("TextLabel")
+
     SidebarTitleGlow.Name = "Glow"
     SidebarTitleGlow.Size = SidebarTitle.Size
     SidebarTitleGlow.Position = SidebarTitle.Position
@@ -334,6 +430,7 @@ function Library:CreateWindow(Config)
     SidebarTitleGlow.Parent = Main
 
     local GlowStroke = Instance.new("UIStroke")
+
     GlowStroke.Thickness = 4
     GlowStroke.Color = Color3.fromRGB(198, 0, 96)
     GlowStroke.Transparency = 0.8
@@ -344,6 +441,7 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local TopBar = Instance.new("Frame")
+
     TopBar.Name = "TopBar"
     TopBar.Size = UDim2.new(1, 0, 0, 63)
     TopBar.Position = UDim2.new(0, 0, 0, 0)
@@ -352,7 +450,31 @@ function Library:CreateWindow(Config)
     TopBar.ZIndex = 3
     TopBar.Parent = Main
 
+    local TopBarCorner = Instance.new("UICorner")
+
+    TopBarCorner.Name = "TopBarCorner"
+    TopBarCorner.CornerRadius = UDim.new(0, 6)
+    TopBarCorner.Parent = TopBar
+
+    TopBar.ClipsDescendants = true
+
+    local TopBarStroke = Instance.new("UIStroke")
+
+    TopBarStroke.Name = "RoundedOutline"
+    TopBarStroke.Thickness = 1
+    TopBarStroke.Color = Color3.fromRGB(85, 85, 85)
+    TopBarStroke.Parent = TopBar
+
+    CreateSharpOutline(
+        TopBar,
+        "SharpOutline",
+        Color3.fromRGB(25, 25, 25),
+        1,
+        4
+    )
+
     local HeaderTexture = Instance.new("ImageLabel")
+
     HeaderTexture.Name = "HeaderTexture"
     HeaderTexture.Size = UDim2.new(1, 0, 0, 63)
     HeaderTexture.BackgroundTransparency = 1
@@ -360,9 +482,10 @@ function Library:CreateWindow(Config)
     HeaderTexture.Image = "rbxassetid://84115731336234"
     HeaderTexture.ScaleType = Enum.ScaleType.Stretch
     HeaderTexture.ZIndex = 4
-    HeaderTexture.Parent = Main
+    HeaderTexture.Parent = TopBar
 
     local HeaderSeparator = Instance.new("Frame")
+
     HeaderSeparator.Name = "HeaderSeparator"
     HeaderSeparator.Size = UDim2.new(1, 0, 0, 1)
     HeaderSeparator.Position = UDim2.new(0, 0, 1, -1)
@@ -376,6 +499,7 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local OverlapBar = Instance.new("Frame")
+
     OverlapBar.Name = "OverlapBar"
     OverlapBar.Size = UDim2.fromOffset(94, 63)
     OverlapBar.Position = UDim2.fromOffset(0, 0)
@@ -385,6 +509,7 @@ function Library:CreateWindow(Config)
     OverlapBar.Parent = Main
 
     local SettingsIcon = Instance.new("ImageButton")
+
     SettingsIcon.Name = "SettingsIcon"
     SettingsIcon.Size = UDim2.fromOffset(45, 45)
     SettingsIcon.Position = UDim2.new(1, -8, 1, -6)
@@ -396,6 +521,7 @@ function Library:CreateWindow(Config)
     SettingsIcon.Parent = OverlapBar
 
     local DecalSidePanel = Instance.new("Frame")
+
     DecalSidePanel.Name = "DecalSidePanel"
     DecalSidePanel.Size = UDim2.fromOffset(22, 22)
     DecalSidePanel.Position = UDim2.fromOffset(100, 5)
@@ -406,10 +532,12 @@ function Library:CreateWindow(Config)
     DecalSidePanel.Parent = TopBar
 
     local DecalSideCorner = Instance.new("UICorner")
+
     DecalSideCorner.CornerRadius = UDim.new(0, 4)
     DecalSideCorner.Parent = DecalSidePanel
 
     local DecalSideGradient = Instance.new("UIGradient")
+
     DecalSideGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(113, 0, 154)),
         ColorSequenceKeypoint.new(0.5, Color3.fromRGB(53, 53, 53)),
@@ -419,11 +547,21 @@ function Library:CreateWindow(Config)
     DecalSideGradient.Parent = DecalSidePanel
 
     local DecalSideOutline = Instance.new("UIStroke")
+
     DecalSideOutline.Thickness = 1
     DecalSideOutline.Color = Color3.fromRGB(85, 85, 85)
     DecalSideOutline.Parent = DecalSidePanel
 
+    CreateSharpOutline(
+        DecalSidePanel,
+        "SharpOutline",
+        Color3.fromRGB(30, 30, 30),
+        1,
+        8
+    )
+
     local DecalSidePanel2 = Instance.new("Frame")
+
     DecalSidePanel2.Name = "DecalSidePanel2"
     DecalSidePanel2.Size = UDim2.fromOffset(22, 22)
     DecalSidePanel2.Position = UDim2.fromOffset(100, 35)
@@ -434,10 +572,12 @@ function Library:CreateWindow(Config)
     DecalSidePanel2.Parent = TopBar
 
     local DecalSideCorner2 = Instance.new("UICorner")
+
     DecalSideCorner2.CornerRadius = UDim.new(0, 4)
     DecalSideCorner2.Parent = DecalSidePanel2
 
     local DecalSideGradient2 = Instance.new("UIGradient")
+
     DecalSideGradient2.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(113, 0, 154)),
         ColorSequenceKeypoint.new(0.5, Color3.fromRGB(53, 53, 53)),
@@ -447,11 +587,21 @@ function Library:CreateWindow(Config)
     DecalSideGradient2.Parent = DecalSidePanel2
 
     local DecalSideOutline2 = Instance.new("UIStroke")
+
     DecalSideOutline2.Thickness = 1
     DecalSideOutline2.Color = Color3.fromRGB(85, 85, 85)
     DecalSideOutline2.Parent = DecalSidePanel2
 
+    CreateSharpOutline(
+        DecalSidePanel2,
+        "SharpOutline",
+        Color3.fromRGB(30, 30, 30),
+        1,
+        8
+    )
+
     local OverlapShadow = Instance.new("ImageLabel")
+
     OverlapShadow.Name = "OverlapShadow"
     OverlapShadow.Size = UDim2.fromScale(1.2, 1.35)
     OverlapShadow.Position = UDim2.fromScale(-0.1, 0.035)
@@ -465,6 +615,7 @@ function Library:CreateWindow(Config)
     OverlapShadow.Parent = OverlapBar
 
     local OverlapImage = Instance.new("ImageLabel")
+
     OverlapImage.Name = "OverlapImage"
     OverlapImage.Size = UDim2.fromScale(1.15, 1.35)
     OverlapImage.Position = UDim2.fromScale(-0.2, 0)
@@ -480,10 +631,12 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local Unload = Instance.new("TextButton")
+
     Unload.Name = "Unload"
     Unload.Size = UDim2.fromOffset(44, 30)
     Unload.Position = UDim2.new(1, -38, 0, 0)
     Unload.BackgroundTransparency = 1
+    Unload.BorderSizePixel = 0
     Unload.Text = "X"
     Unload.TextColor3 = Color3.fromRGB(128, 38, 58)
     Unload.TextSize = 20
@@ -491,11 +644,8 @@ function Library:CreateWindow(Config)
     Unload.ZIndex = 10
     Unload.Parent = TopBar
 
-    Unload.MouseButton1Click:Connect(function()
-        ScreenGui:Destroy()
-    end)
-
     local UnloadPanel = Instance.new("Frame")
+
     UnloadPanel.Name = "UnloadPanel"
     UnloadPanel.Size = UDim2.fromOffset(33, 30)
     UnloadPanel.Position = UDim2.new(1, -33, 0, 0)
@@ -506,10 +656,12 @@ function Library:CreateWindow(Config)
     UnloadPanel.Parent = TopBar
 
     local UnloadPanelCorner = Instance.new("UICorner")
+
     UnloadPanelCorner.CornerRadius = UDim.new(0, 4)
     UnloadPanelCorner.Parent = UnloadPanel
 
     local UnloadPanelGradient = Instance.new("UIGradient")
+
     UnloadPanelGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
         ColorSequenceKeypoint.new(0.5, Color3.fromRGB(53, 53, 53)),
@@ -519,15 +671,29 @@ function Library:CreateWindow(Config)
     UnloadPanelGradient.Parent = UnloadPanel
 
     local UnloadPanelOutline = Instance.new("UIStroke")
+
     UnloadPanelOutline.Thickness = 1
     UnloadPanelOutline.Color = Color3.fromRGB(85, 85, 85)
     UnloadPanelOutline.Parent = UnloadPanel
+
+    CreateSharpOutline(
+        UnloadPanel,
+        "SharpOutline",
+        Color3.fromRGB(30, 30, 30),
+        1,
+        9
+    )
+
+    Unload.MouseButton1Click:Connect(function()
+        ScreenGui:Destroy()
+    end)
 
     ----------------------------------------------------------------
     -- MINIMIZE
     ----------------------------------------------------------------
 
     local MinimizePanel = Instance.new("Frame")
+
     MinimizePanel.Name = "MinimizePanel"
     MinimizePanel.Size = UDim2.fromOffset(33, 30)
     MinimizePanel.Position = UDim2.new(1, -33, 0, 31)
@@ -538,10 +704,12 @@ function Library:CreateWindow(Config)
     MinimizePanel.Parent = TopBar
 
     local MinimizePanelCorner = Instance.new("UICorner")
+
     MinimizePanelCorner.CornerRadius = UDim.new(0, 4)
     MinimizePanelCorner.Parent = MinimizePanel
 
     local MinimizePanelGradient = Instance.new("UIGradient")
+
     MinimizePanelGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(102, 0, 180)),
         ColorSequenceKeypoint.new(0.5, Color3.fromRGB(53, 53, 53)),
@@ -551,11 +719,21 @@ function Library:CreateWindow(Config)
     MinimizePanelGradient.Parent = MinimizePanel
 
     local MinimizePanelOutline = Instance.new("UIStroke")
+
     MinimizePanelOutline.Thickness = 1
     MinimizePanelOutline.Color = Color3.fromRGB(85, 85, 85)
     MinimizePanelOutline.Parent = MinimizePanel
 
+    CreateSharpOutline(
+        MinimizePanel,
+        "SharpOutline",
+        Color3.fromRGB(30, 30, 30),
+        1,
+        9
+    )
+
     local MinimizeButton = Instance.new("TextButton")
+
     MinimizeButton.Name = "Minimize"
     MinimizeButton.Size = UDim2.fromOffset(44, 33)
     MinimizeButton.Position = UDim2.new(1, -39, 0, 19)
@@ -619,10 +797,12 @@ function Library:CreateWindow(Config)
         end
 
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+
             draggingMinimized = true
             minimizedMoved = false
             minimizedDragStart = input.Position
             minimizedStartPosition = Main.Position
+
         end
     end)
 
@@ -684,7 +864,6 @@ function Library:CreateWindow(Config)
             OverlapBar.Visible = true
             OverlapImage.Visible = true
             OverlapShadow.Visible = true
-
             SettingsIcon.Visible = true
 
             OverlapImage.ZIndex = 9
@@ -702,6 +881,7 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local SearchBar = Instance.new("Frame")
+
     SearchBar.Name = "SearchBar"
     SearchBar.Size = UDim2.fromOffset(300, 34)
     SearchBar.Position = UDim2.new(1, -360, 0, 14)
@@ -711,7 +891,13 @@ function Library:CreateWindow(Config)
     SearchBar.ZIndex = 7
     SearchBar.Parent = TopBar
 
+    local SearchCorner = Instance.new("UICorner")
+
+    SearchCorner.CornerRadius = UDim.new(0, 5)
+    SearchCorner.Parent = SearchBar
+
     local SearchGradient = Instance.new("UIGradient")
+
     SearchGradient.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromRGB(102, 0, 255)),
         ColorSequenceKeypoint.new(0.45, Color3.fromRGB(0, 0, 0)),
@@ -721,11 +907,21 @@ function Library:CreateWindow(Config)
     SearchGradient.Parent = SearchBar
 
     local SearchOutline = Instance.new("UIStroke")
+
     SearchOutline.Thickness = 1
     SearchOutline.Color = Color3.fromRGB(85, 85, 85)
     SearchOutline.Parent = SearchBar
 
+    CreateSharpOutline(
+        SearchBar,
+        "SharpOutline",
+        Color3.fromRGB(30, 30, 30),
+        1,
+        8
+    )
+
     local SearchOuterFrame = Instance.new("Frame")
+
     SearchOuterFrame.Name = "SearchOuterFrame"
     SearchOuterFrame.Size = UDim2.fromOffset(304, 38)
     SearchOuterFrame.Position = UDim2.new(1, -362, 0, 12)
@@ -735,15 +931,18 @@ function Library:CreateWindow(Config)
     SearchOuterFrame.Parent = TopBar
 
     local SearchOuterCorner = Instance.new("UICorner")
+
     SearchOuterCorner.CornerRadius = UDim.new(0, 5)
     SearchOuterCorner.Parent = SearchOuterFrame
 
     local SearchOuterOutline = Instance.new("UIStroke")
+
     SearchOuterOutline.Thickness = 1
     SearchOuterOutline.Color = Color3.fromRGB(35, 0, 88)
     SearchOuterOutline.Parent = SearchOuterFrame
 
     local SearchBox = Instance.new("TextBox")
+
     SearchBox.Name = "SearchBox"
     SearchBox.Size = UDim2.new(1, -16, 1, 0)
     SearchBox.Position = UDim2.fromOffset(8, 0)
@@ -766,6 +965,7 @@ function Library:CreateWindow(Config)
     ----------------------------------------------------------------
 
     local BottomBar = Instance.new("Frame")
+
     BottomBar.Name = "BottomBar"
     BottomBar.Size = UDim2.new(1, 0, 0, 23)
     BottomBar.Position = UDim2.new(0, 0, 1, -23)
@@ -774,158 +974,196 @@ function Library:CreateWindow(Config)
     BottomBar.ZIndex = 1
     BottomBar.Parent = Main
 
-    local BottomBar = Instance.new("Frame")
-BottomBar.Name = "BottomBar"
-BottomBar.Size = UDim2.new(1, 0, 0, 23)
-BottomBar.Position = UDim2.new(0, 0, 1, -23)
-BottomBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-BottomBar.BorderSizePixel = 0
-BottomBar.ZIndex = 1
-BottomBar.Parent = Main
+    local BottomBarCorner = Instance.new("UICorner")
 
--- Premium Discord text
-local PremiumText = Instance.new("TextLabel")
-PremiumText.Name = "PremiumText"
-PremiumText.Size = UDim2.fromOffset(25, 23)
-PremiumText.Position = UDim2.new(1.03, -280, 0, 0)
-PremiumText.BackgroundTransparency = 1
-PremiumText.BorderSizePixel = 0
-PremiumText.Text = "for"
-PremiumText.TextColor3 = Color3.fromRGB(105, 105, 105)
-PremiumText.TextSize = 11
-PremiumText.FontFace = Font.new("rbxassetid://12187366846")
-PremiumText.TextXAlignment = Enum.TextXAlignment.Left
-PremiumText.TextYAlignment = Enum.TextYAlignment.Center
-PremiumText.ZIndex = 3
-PremiumText.Parent = BottomBar
+    BottomBarCorner.Name = "BottomBarCorner"
+    BottomBarCorner.CornerRadius = UDim.new(0, 6)
+    BottomBarCorner.Parent = BottomBar
 
-local PremiumWord = Instance.new("TextLabel")
-PremiumWord.Name = "Premium"
-PremiumWord.Size = UDim2.fromOffset(55, 23)
-PremiumWord.Position = UDim2.new(1.03, -260, 0, 0)
-PremiumWord.BackgroundTransparency = 1
-PremiumWord.BorderSizePixel = 0
-PremiumWord.Text = "PREMIUM"
-PremiumWord.TextColor3 = Color3.fromRGB(255, 196, 55)
-PremiumWord.TextSize = 11
-PremiumWord.FontFace = Font.new("rbxassetid://12187366846")
-PremiumWord.TextXAlignment = Enum.TextXAlignment.Left
-PremiumWord.TextYAlignment = Enum.TextYAlignment.Center
-PremiumWord.ZIndex = 3
-PremiumWord.Parent = BottomBar
+    BottomBar.ClipsDescendants = true
 
-local PremiumKeys = Instance.new("TextLabel")
-PremiumKeys.Name = "PremiumKeys"
-PremiumKeys.Size = UDim2.fromOffset(45, 23)
-PremiumKeys.Position = UDim2.new(1.04, -212, 0, 0)
-PremiumKeys.BackgroundTransparency = 1
-PremiumKeys.BorderSizePixel = 0
-PremiumKeys.Text = " keys"
-PremiumKeys.TextColor3 = Color3.fromRGB(105, 105, 105)
-PremiumKeys.TextSize = 11
-PremiumKeys.FontFace = Font.new("rbxassetid://12187366846")
-PremiumKeys.TextXAlignment = Enum.TextXAlignment.Left
-PremiumKeys.TextYAlignment = Enum.TextYAlignment.Center
-PremiumKeys.ZIndex = 3
-PremiumKeys.Parent = BottomBar
+    local BottomBarStroke = Instance.new("UIStroke")
 
-local JoinText = Instance.new("TextLabel")
-JoinText.Name = "JoinText"
-JoinText.Size = UDim2.fromOffset(35, 23)
-JoinText.Position = UDim2.new(1.04, -184, 0, 0)
-JoinText.BackgroundTransparency = 1
-JoinText.BorderSizePixel = 0
-JoinText.Text = "join the"
-JoinText.TextColor3 = Color3.fromRGB(105, 105, 105)
-JoinText.TextSize = 11
-JoinText.FontFace = Font.new("rbxassetid://12187366846")
-JoinText.TextXAlignment = Enum.TextXAlignment.Left
-JoinText.TextYAlignment = Enum.TextYAlignment.Center
-JoinText.ZIndex = 3
-JoinText.Parent = BottomBar
+    BottomBarStroke.Name = "RoundedOutline"
+    BottomBarStroke.Thickness = 1
+    BottomBarStroke.Color = Color3.fromRGB(85, 85, 85)
+    BottomBarStroke.Parent = BottomBar
 
-local DiscordText = Instance.new("TextLabel")
-DiscordText.Name = "Discord"
-DiscordText.Size = UDim2.fromOffset(50, 23)
-DiscordText.Position = UDim2.new(1, -115, 0, 0)
-DiscordText.BackgroundTransparency = 1
-DiscordText.BorderSizePixel = 0
-DiscordText.Text = "discord:"
-DiscordText.TextColor3 = Color3.fromRGB(88, 140, 255)
-DiscordText.TextSize = 11
-DiscordText.FontFace = Font.new("rbxassetid://12187376739")
-DiscordText.TextXAlignment = Enum.TextXAlignment.Left
-DiscordText.TextYAlignment = Enum.TextYAlignment.Center
-DiscordText.ZIndex = 3
-DiscordText.Parent = BottomBar
-
-local DiscordImage = Instance.new("ImageButton")
-DiscordImage.Name = "DiscordImage"
-DiscordImage.Size = UDim2.fromOffset(33, 33)
-DiscordImage.Position = UDim2.new(1, -67, 0, 3)
-DiscordImage.BackgroundTransparency = 1
-DiscordImage.BorderSizePixel = 0
-DiscordImage.Image = "rbxassetid://117233346775475"
-DiscordImage.AutoButtonColor = false
-DiscordImage.ZIndex = 4
-DiscordImage.Parent = BottomBar
-
-DiscordImage.MouseButton1Click:Connect(function()
-
-    if setclipboard then
-        setclipboard("https://discord.gg/reaperlol")
-    end
-
-    local mouse = LocalPlayer:GetMouse()
-
-    local LinkCopied = Instance.new("TextLabel")
-    LinkCopied.Name = "LinkCopied"
-    LinkCopied.Size = UDim2.fromOffset(100, 25)
-    LinkCopied.Position = UDim2.fromOffset(mouse.X - 50, mouse.Y - 35)
-    LinkCopied.BackgroundTransparency = 1
-    LinkCopied.BorderSizePixel = 0
-    LinkCopied.Text = "link copied!"
-    LinkCopied.TextColor3 = Color3.fromRGB(255, 255, 255)
-    LinkCopied.TextTransparency = 1
-    LinkCopied.TextSize = 13
-    LinkCopied.FontFace = Font.new("rbxassetid://12187376739")
-    LinkCopied.TextXAlignment = Enum.TextXAlignment.Center
-    LinkCopied.TextYAlignment = Enum.TextYAlignment.Center
-    LinkCopied.ZIndex = 100
-    LinkCopied.Parent = PlayerGui
-
-    local FadeIn = TweenService:Create(
-        LinkCopied,
-        TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-        {
-            TextTransparency = 0
-        }
+    CreateSharpOutline(
+        BottomBar,
+        "SharpOutline",
+        Color3.fromRGB(25, 25, 25),
+        1,
+        2
     )
 
-    FadeIn:Play()
-    FadeIn.Completed:Wait()
+    ----------------------------------------------------------------
+    -- PREMIUM DISCORD TEXT
+    ----------------------------------------------------------------
 
-    task.wait(0.8)
+    local PremiumText = Instance.new("TextLabel")
 
-    local FadeOut = TweenService:Create(
-        LinkCopied,
-        TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-        {
-            TextTransparency = 1
-        }
-    )
+    PremiumText.Name = "PremiumText"
+    PremiumText.Size = UDim2.fromOffset(25, 23)
+    PremiumText.Position = UDim2.new(1.03, -280, 0, 0)
+    PremiumText.BackgroundTransparency = 1
+    PremiumText.BorderSizePixel = 0
+    PremiumText.Text = "for"
+    PremiumText.TextColor3 = Color3.fromRGB(105, 105, 105)
+    PremiumText.TextSize = 11
+    PremiumText.FontFace = Font.new("rbxassetid://12187366846")
+    PremiumText.TextXAlignment = Enum.TextXAlignment.Left
+    PremiumText.TextYAlignment = Enum.TextYAlignment.Center
+    PremiumText.ZIndex = 3
+    PremiumText.Parent = BottomBar
 
-    FadeOut:Play()
-    FadeOut.Completed:Wait()
+    local PremiumWord = Instance.new("TextLabel")
 
-    LinkCopied:Destroy()
-end)
+    PremiumWord.Name = "Premium"
+    PremiumWord.Size = UDim2.fromOffset(55, 23)
+    PremiumWord.Position = UDim2.new(1.03, -260, 0, 0)
+    PremiumWord.BackgroundTransparency = 1
+    PremiumWord.BorderSizePixel = 0
+    PremiumWord.Text = "PREMIUM"
+    PremiumWord.TextColor3 = Color3.fromRGB(255, 196, 55)
+    PremiumWord.TextSize = 11
+    PremiumWord.FontFace = Font.new("rbxassetid://12187366846")
+    PremiumWord.TextXAlignment = Enum.TextXAlignment.Left
+    PremiumWord.TextYAlignment = Enum.TextYAlignment.Center
+    PremiumWord.ZIndex = 3
+    PremiumWord.Parent = BottomBar
+
+    local PremiumKeys = Instance.new("TextLabel")
+
+    PremiumKeys.Name = "PremiumKeys"
+    PremiumKeys.Size = UDim2.fromOffset(45, 23)
+    PremiumKeys.Position = UDim2.new(1.04, -212, 0, 0)
+    PremiumKeys.BackgroundTransparency = 1
+    PremiumKeys.BorderSizePixel = 0
+    PremiumKeys.Text = " keys"
+    PremiumKeys.TextColor3 = Color3.fromRGB(105, 105, 105)
+    PremiumKeys.TextSize = 11
+    PremiumKeys.FontFace = Font.new("rbxassetid://12187366846")
+    PremiumKeys.TextXAlignment = Enum.TextXAlignment.Left
+    PremiumKeys.TextYAlignment = Enum.TextYAlignment.Center
+    PremiumKeys.ZIndex = 3
+    PremiumKeys.Parent = BottomBar
+
+    local JoinText = Instance.new("TextLabel")
+
+    JoinText.Name = "JoinText"
+    JoinText.Size = UDim2.fromOffset(35, 23)
+    JoinText.Position = UDim2.new(1.04, -184, 0, 0)
+    JoinText.BackgroundTransparency = 1
+    JoinText.BorderSizePixel = 0
+    JoinText.Text = "join the"
+    JoinText.TextColor3 = Color3.fromRGB(105, 105, 105)
+    JoinText.TextSize = 11
+    JoinText.FontFace = Font.new("rbxassetid://12187366846")
+    JoinText.TextXAlignment = Enum.TextXAlignment.Left
+    JoinText.TextYAlignment = Enum.TextYAlignment.Center
+    JoinText.ZIndex = 3
+    JoinText.Parent = BottomBar
+
+    local DiscordText = Instance.new("TextLabel")
+
+    DiscordText.Name = "Discord"
+    DiscordText.Size = UDim2.fromOffset(50, 23)
+    DiscordText.Position = UDim2.new(1, -115, 0, 0)
+    DiscordText.BackgroundTransparency = 1
+    DiscordText.BorderSizePixel = 0
+    DiscordText.Text = "discord:"
+    DiscordText.TextColor3 = Color3.fromRGB(88, 140, 255)
+    DiscordText.TextSize = 11
+    DiscordText.FontFace = Font.new("rbxassetid://12187376739")
+    DiscordText.TextXAlignment = Enum.TextXAlignment.Left
+    DiscordText.TextYAlignment = Enum.TextYAlignment.Center
+    DiscordText.ZIndex = 3
+    DiscordText.Parent = BottomBar
+
+    local DiscordImage = Instance.new("ImageButton")
+
+    DiscordImage.Name = "DiscordImage"
+    DiscordImage.Size = UDim2.fromOffset(33, 33)
+    DiscordImage.Position = UDim2.new(1, -67, 0, 3)
+    DiscordImage.BackgroundTransparency = 1
+    DiscordImage.BorderSizePixel = 0
+    DiscordImage.Image = "rbxassetid://117233346775475"
+    DiscordImage.AutoButtonColor = false
+    DiscordImage.ZIndex = 4
+    DiscordImage.Parent = BottomBar
+
+    DiscordImage.MouseButton1Click:Connect(function()
+
+        if setclipboard then
+            setclipboard("https://discord.gg/reaperlol")
+        end
+
+        local mouse = LocalPlayer:GetMouse()
+
+        local LinkCopied = Instance.new("TextLabel")
+
+        LinkCopied.Name = "LinkCopied"
+        LinkCopied.Size = UDim2.fromOffset(100, 25)
+        LinkCopied.Position = UDim2.fromOffset(mouse.X - 50, mouse.Y - 35)
+        LinkCopied.BackgroundTransparency = 1
+        LinkCopied.BorderSizePixel = 0
+        LinkCopied.Text = "link copied!"
+        LinkCopied.TextColor3 = Color3.fromRGB(255, 255, 255)
+        LinkCopied.TextTransparency = 1
+        LinkCopied.TextSize = 13
+        LinkCopied.FontFace = Font.new("rbxassetid://12187376739")
+        LinkCopied.TextXAlignment = Enum.TextXAlignment.Center
+        LinkCopied.TextYAlignment = Enum.TextYAlignment.Center
+        LinkCopied.ZIndex = 100
+        LinkCopied.Parent = PlayerGui
+
+        local FadeIn = TweenService:Create(
+            LinkCopied,
+            TweenInfo.new(
+                0.3,
+                Enum.EasingStyle.Quad,
+                Enum.EasingDirection.Out
+            ),
+            {
+                TextTransparency = 0
+            }
+        )
+
+        FadeIn:Play()
+        FadeIn.Completed:Wait()
+
+        task.wait(0.8)
+
+        local FadeOut = TweenService:Create(
+            LinkCopied,
+            TweenInfo.new(
+                0.3,
+                Enum.EasingStyle.Quad,
+                Enum.EasingDirection.Out
+            ),
+            {
+                TextTransparency = 1
+            }
+        )
+
+        FadeOut:Play()
+        FadeOut.Completed:Wait()
+
+        LinkCopied:Destroy()
+    end)
+
+    ----------------------------------------------------------------
+    -- VERSION
+    ----------------------------------------------------------------
 
     local VersionLabel = Instance.new("TextLabel")
+
     VersionLabel.Name = "VersionLabel"
     VersionLabel.Size = UDim2.fromOffset(100, 23)
     VersionLabel.Position = UDim2.new(0.5, -170, 0, 0)
     VersionLabel.BackgroundTransparency = 1
+    VersionLabel.BorderSizePixel = 0
     VersionLabel.Text = Config.Version or "VERSION X.X"
     VersionLabel.TextColor3 = Color3.fromRGB(105, 105, 105)
     VersionLabel.TextSize = 11
@@ -935,11 +1173,17 @@ end)
     VersionLabel.ZIndex = 3
     VersionLabel.Parent = BottomBar
 
+    ----------------------------------------------------------------
+    -- GAME LABEL
+    ----------------------------------------------------------------
+
     local GameLabel = Instance.new("TextLabel")
+
     GameLabel.Name = "GameLabel"
     GameLabel.Size = UDim2.fromOffset(100, 11)
     GameLabel.Position = UDim2.new(0.53, -110, 0, 0)
     GameLabel.BackgroundTransparency = 1
+    GameLabel.BorderSizePixel = 0
     GameLabel.Text = "ˇˇGAMEˇˇ"
     GameLabel.TextColor3 = Color3.fromRGB(105, 105, 105)
     GameLabel.TextSize = 8
@@ -950,10 +1194,12 @@ end)
     GameLabel.Parent = BottomBar
 
     local CurrentGameLabel = Instance.new("TextLabel")
+
     CurrentGameLabel.Name = "CurrentGameLabel"
     CurrentGameLabel.Size = UDim2.fromOffset(100, 29)
     CurrentGameLabel.Position = UDim2.new(0.53, -110, 0, 0)
     CurrentGameLabel.BackgroundTransparency = 1
+    CurrentGameLabel.BorderSizePixel = 0
     CurrentGameLabel.Text = "|" .. string.upper(GameName) .. "|"
     CurrentGameLabel.TextColor3 = Color3.fromRGB(105, 105, 105)
     CurrentGameLabel.TextSize = 12
@@ -963,7 +1209,12 @@ end)
     CurrentGameLabel.ZIndex = 3
     CurrentGameLabel.Parent = BottomBar
 
+    ----------------------------------------------------------------
+    -- RESIZE
+    ----------------------------------------------------------------
+
     local ResizeButton = Instance.new("TextButton")
+
     ResizeButton.Name = "ResizeButton"
     ResizeButton.Size = UDim2.fromOffset(28, 23)
     ResizeButton.Position = UDim2.new(1, -28, 0, 0)
@@ -980,6 +1231,7 @@ end)
 
     local MIN_WIDTH = 505
     local MAX_WIDTH = 850
+
     local resizing = false
     local resizeStart
     local originalSize
