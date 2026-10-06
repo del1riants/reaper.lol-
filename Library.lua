@@ -323,35 +323,35 @@ DecalSideOutline.Parent = DecalSidePanel
 
 -- 2nd Gray panel next to decal
 local DecalSidePanel2 = Instance.new("Frame")
-DecalSidePanel.Name = "DecalSidePanel"
-DecalSidePanel.Size = UDim2.fromOffset(22, 22)
-DecalSidePanel.Position = UDim2.fromOffset(100, 35)
-DecalSidePanel.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-DecalSidePanel.BackgroundTransparency = 0.35
-DecalSidePanel.BorderSizePixel = 0
-DecalSidePanel.ZIndex = 7
-DecalSidePanel.Parent = TopBar
+DecalSidePanel2.Name = "DecalSidePanel2"
+DecalSidePanel2.Size = UDim2.fromOffset(22, 22)
+DecalSidePanel2.Position = UDim2.fromOffset(100, 35)
+DecalSidePanel2.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+DecalSidePanel2.BackgroundTransparency = 0.35
+DecalSidePanel2.BorderSizePixel = 0
+DecalSidePanel2.ZIndex = 7
+DecalSidePanel2.Parent = TopBar
 
 local DecalSideCorner2 = Instance.new("UICorner")
-DecalSideCorner.CornerRadius = UDim.new(0, 4)
-DecalSideCorner.Parent = DecalSidePanel
+DecalSideCorner2.CornerRadius = UDim.new(0, 4)
+DecalSideCorner2.Parent = DecalSidePanel2
 
 local DecalSideGradient2 = Instance.new("UIGradient")
-DecalSideGradient.Color = ColorSequence.new({
+DecalSideGradient2.Color = ColorSequence.new({
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(113, 0, 154)),
 	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(53, 53, 53)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(104, 0, 127))
 })
-DecalSideGradient.Rotation = 100
-DecalSideGradient.Parent = DecalSidePanel
+DecalSideGradient2.Rotation = 100
+DecalSideGradient2.Parent = DecalSidePanel2
 
 local DecalSideOutline2 = Instance.new("UIStroke")
-DecalSideOutline.Name = "Outline"
-DecalSideOutline.Thickness = 1
-DecalSideOutline.Color = Color3.fromRGB(85, 85, 85)
-DecalSideOutline.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-DecalSideOutline.LineJoinMode = Enum.LineJoinMode.Miter
-DecalSideOutline.Parent = DecalSidePanel
+DecalSideOutline2.Name = "Outline"
+DecalSideOutline2.Thickness = 1
+DecalSideOutline2.Color = Color3.fromRGB(85, 85, 85)
+DecalSideOutline2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+DecalSideOutline2.LineJoinMode = Enum.LineJoinMode.Miter
+DecalSideOutline2.Parent = DecalSidePanel2
 
 -- Decal shadow
 local OverlapShadow = Instance.new("ImageLabel")
