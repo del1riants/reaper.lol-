@@ -774,6 +774,153 @@ function Library:CreateWindow(Config)
     BottomBar.ZIndex = 1
     BottomBar.Parent = Main
 
+    local BottomBar = Instance.new("Frame")
+BottomBar.Name = "BottomBar"
+BottomBar.Size = UDim2.new(1, 0, 0, 23)
+BottomBar.Position = UDim2.new(0, 0, 1, -23)
+BottomBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+BottomBar.BorderSizePixel = 0
+BottomBar.ZIndex = 1
+BottomBar.Parent = Main
+
+-- Premium Discord text
+local PremiumText = Instance.new("TextLabel")
+PremiumText.Name = "PremiumText"
+PremiumText.Size = UDim2.fromOffset(25, 23)
+PremiumText.Position = UDim2.new(1.03, -280, 0, 0)
+PremiumText.BackgroundTransparency = 1
+PremiumText.BorderSizePixel = 0
+PremiumText.Text = "for"
+PremiumText.TextColor3 = Color3.fromRGB(105, 105, 105)
+PremiumText.TextSize = 11
+PremiumText.FontFace = Font.new("rbxassetid://12187366846")
+PremiumText.TextXAlignment = Enum.TextXAlignment.Left
+PremiumText.TextYAlignment = Enum.TextYAlignment.Center
+PremiumText.ZIndex = 3
+PremiumText.Parent = BottomBar
+
+local PremiumWord = Instance.new("TextLabel")
+PremiumWord.Name = "Premium"
+PremiumWord.Size = UDim2.fromOffset(55, 23)
+PremiumWord.Position = UDim2.new(1.03, -260, 0, 0)
+PremiumWord.BackgroundTransparency = 1
+PremiumWord.BorderSizePixel = 0
+PremiumWord.Text = "PREMIUM"
+PremiumWord.TextColor3 = Color3.fromRGB(255, 196, 55)
+PremiumWord.TextSize = 11
+PremiumWord.FontFace = Font.new("rbxassetid://12187366846")
+PremiumWord.TextXAlignment = Enum.TextXAlignment.Left
+PremiumWord.TextYAlignment = Enum.TextYAlignment.Center
+PremiumWord.ZIndex = 3
+PremiumWord.Parent = BottomBar
+
+local PremiumKeys = Instance.new("TextLabel")
+PremiumKeys.Name = "PremiumKeys"
+PremiumKeys.Size = UDim2.fromOffset(45, 23)
+PremiumKeys.Position = UDim2.new(1.04, -212, 0, 0)
+PremiumKeys.BackgroundTransparency = 1
+PremiumKeys.BorderSizePixel = 0
+PremiumKeys.Text = " keys"
+PremiumKeys.TextColor3 = Color3.fromRGB(105, 105, 105)
+PremiumKeys.TextSize = 11
+PremiumKeys.FontFace = Font.new("rbxassetid://12187366846")
+PremiumKeys.TextXAlignment = Enum.TextXAlignment.Left
+PremiumKeys.TextYAlignment = Enum.TextYAlignment.Center
+PremiumKeys.ZIndex = 3
+PremiumKeys.Parent = BottomBar
+
+local JoinText = Instance.new("TextLabel")
+JoinText.Name = "JoinText"
+JoinText.Size = UDim2.fromOffset(35, 23)
+JoinText.Position = UDim2.new(1.04, -184, 0, 0)
+JoinText.BackgroundTransparency = 1
+JoinText.BorderSizePixel = 0
+JoinText.Text = "join the"
+JoinText.TextColor3 = Color3.fromRGB(105, 105, 105)
+JoinText.TextSize = 11
+JoinText.FontFace = Font.new("rbxassetid://12187366846")
+JoinText.TextXAlignment = Enum.TextXAlignment.Left
+JoinText.TextYAlignment = Enum.TextYAlignment.Center
+JoinText.ZIndex = 3
+JoinText.Parent = BottomBar
+
+local DiscordText = Instance.new("TextLabel")
+DiscordText.Name = "Discord"
+DiscordText.Size = UDim2.fromOffset(50, 23)
+DiscordText.Position = UDim2.new(1, -115, 0, 0)
+DiscordText.BackgroundTransparency = 1
+DiscordText.BorderSizePixel = 0
+DiscordText.Text = "discord:"
+DiscordText.TextColor3 = Color3.fromRGB(88, 140, 255)
+DiscordText.TextSize = 11
+DiscordText.FontFace = Font.new("rbxassetid://12187376739")
+DiscordText.TextXAlignment = Enum.TextXAlignment.Left
+DiscordText.TextYAlignment = Enum.TextYAlignment.Center
+DiscordText.ZIndex = 3
+DiscordText.Parent = BottomBar
+
+local DiscordImage = Instance.new("ImageButton")
+DiscordImage.Name = "DiscordImage"
+DiscordImage.Size = UDim2.fromOffset(33, 33)
+DiscordImage.Position = UDim2.new(1, -67, 0, 3)
+DiscordImage.BackgroundTransparency = 1
+DiscordImage.BorderSizePixel = 0
+DiscordImage.Image = "rbxassetid://117233346775475"
+DiscordImage.AutoButtonColor = false
+DiscordImage.ZIndex = 4
+DiscordImage.Parent = BottomBar
+
+DiscordImage.MouseButton1Click:Connect(function()
+
+    if setclipboard then
+        setclipboard("https://discord.gg/reaperlol")
+    end
+
+    local mouse = LocalPlayer:GetMouse()
+
+    local LinkCopied = Instance.new("TextLabel")
+    LinkCopied.Name = "LinkCopied"
+    LinkCopied.Size = UDim2.fromOffset(100, 25)
+    LinkCopied.Position = UDim2.fromOffset(mouse.X - 50, mouse.Y - 35)
+    LinkCopied.BackgroundTransparency = 1
+    LinkCopied.BorderSizePixel = 0
+    LinkCopied.Text = "link copied!"
+    LinkCopied.TextColor3 = Color3.fromRGB(255, 255, 255)
+    LinkCopied.TextTransparency = 1
+    LinkCopied.TextSize = 13
+    LinkCopied.FontFace = Font.new("rbxassetid://12187376739")
+    LinkCopied.TextXAlignment = Enum.TextXAlignment.Center
+    LinkCopied.TextYAlignment = Enum.TextYAlignment.Center
+    LinkCopied.ZIndex = 100
+    LinkCopied.Parent = PlayerGui
+
+    local FadeIn = TweenService:Create(
+        LinkCopied,
+        TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {
+            TextTransparency = 0
+        }
+    )
+
+    FadeIn:Play()
+    FadeIn.Completed:Wait()
+
+    task.wait(0.8)
+
+    local FadeOut = TweenService:Create(
+        LinkCopied,
+        TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {
+            TextTransparency = 1
+        }
+    )
+
+    FadeOut:Play()
+    FadeOut.Completed:Wait()
+
+    LinkCopied:Destroy()
+end)
+
     local VersionLabel = Instance.new("TextLabel")
     VersionLabel.Name = "VersionLabel"
     VersionLabel.Size = UDim2.fromOffset(100, 23)
