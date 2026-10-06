@@ -9,6 +9,116 @@ local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 function Library:CreateWindow(Config)
 
+	function Window:CreateTab(Name)
+
+    local Tab = {}
+
+    Tab.Name = Name
+    Tab.Controls = {}
+
+    -- Tab button
+
+    local TabButton = Instance.new("TextButton")
+    TabButton.Name = Name .. "Tab"
+    TabButton.Size = UDim2.new(1, -4, 0, 32)
+    TabButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    TabButton.BackgroundTransparency = 0.35
+    TabButton.BorderSizePixel = 0
+    TabButton.Text = string.upper(Name)
+    TabButton.TextColor3 = Color3.fromRGB(160, 160, 160)
+    TabButton.TextSize = 12
+    TabButton.FontFace = Font.new("rbxassetid://12187376739")
+    TabButton.AutoButtonColor = false
+    TabButton.ZIndex = 7
+    TabButton.Parent = TabContainer
+
+    local TabCorner = Instance.new("UICorner")
+    TabCorner.CornerRadius = UDim.new(0, 4)
+    TabCorner.Parent = TabButton
+
+    local TabStroke = Instance.new("UIStroke")
+    TabStroke.Thickness = 1
+    TabStroke.Color = Color3.fromRGB(85, 85, 85)
+    TabStroke.Transparency = 0
+    TabStroke.Parent = TabButton
+
+    -- Content page
+
+    local Page = Instance.new("ScrollingFrame")
+    Page.Name = Name .. "Page"
+    Page.Size = UDim2.new(1, -10, 1, -10)
+    Page.Position = UDim2.fromOffset(5, 5)
+    Page.BackgroundTransparency = 1
+    Page.BorderSizePixel = 0
+    Page.ScrollBarThickness = 3
+    Page.ScrollBarImageColor3 = Color3.fromRGB(120, 0, 180)
+    Page.CanvasSize = UDim2.new(0, 0, 0, 0)
+    Page.Visible = false
+    Page.ZIndex = 4
+    Page.Parent = MainGrayPanel
+
+    local PageLayout = Instance.new("UIListLayout")
+    PageLayout.Padding = UDim.new(0, 8)
+    PageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    PageLayout.Parent = Page
+
+    local PagePadding = Instance.new("UIPadding")
+    PagePadding.PaddingLeft = UDim.new(0, 8)
+    PagePadding.PaddingRight = UDim.new(0, 8)
+    PagePadding.PaddingTop = UDim.new(0, 8)
+    PagePadding.PaddingBottom = UDim.new(0, 8)
+    PagePadding.Parent = Page
+
+    PageLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        Page.CanvasSize = UDim2.new(
+            0,
+            0,
+            0,
+            PageLayout.AbsoluteContentSize.Y + 16
+        )
+    end)
+
+    Tab.Page = Page
+    Tab.Button = TabButton
+
+    function Tab:Show()
+
+        for _, ExistingTab in pairs(Tabs) do
+            ExistingTab.Page.Visible = false
+
+            ExistingTab.Button.BackgroundColor3 =
+                Color3.fromRGB(45, 45, 45)
+
+            ExistingTab.Button.TextColor3 =
+                Color3.fromRGB(160, 160, 160)
+        end
+
+        Page.Visible = true
+
+        TabButton.BackgroundColor3 =
+            Color3.fromRGB(85, 0, 120)
+
+        TabButton.TextColor3 =
+            Color3.fromRGB(255, 255, 255)
+
+        CurrentTab = Tab
+    end
+
+    TabButton.MouseButton1Click:Connect(function()
+        Tab:Show()
+    end)
+
+    table.insert(Tabs, Tab)
+
+    -- Automatically show the first tab
+
+    if not CurrentTab then
+        Tab:Show()
+    end
+
+    return Tab
+end
+
     Config = Config or {}
 
     local Window = {}
@@ -185,6 +295,37 @@ GrayPanelStroke.Transparency = 0
 GrayPanelStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GrayPanelStroke.LineJoinMode = Enum.LineJoinMode.Miter
 GrayPanelStroke.Parent = GrayPanel
+
+	-- Tab system
+
+local Tabs = {}
+local CurrentTab = nil
+
+local TabContainer = Instance.new("ScrollingFrame")
+TabContainer.Name = "TabContainer"
+TabContainer.Size = UDim2.new(1, -10, 1, -10)
+TabContainer.Position = UDim2.fromOffset(5, 5)
+TabContainer.BackgroundTransparency = 1
+TabContainer.BorderSizePixel = 0
+TabContainer.ScrollBarThickness = 0
+TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
+TabContainer.ZIndex = 6
+TabContainer.Parent = GrayPanel
+
+local TabLayout = Instance.new("UIListLayout")
+TabLayout.Padding = UDim.new(0, 5)
+TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+TabLayout.Parent = TabContainer
+
+TabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    TabContainer.CanvasSize = UDim2.new(
+        0,
+        0,
+        0,
+        TabLayout.AbsoluteContentSize.Y + 10
+    )
+end)
 
 -- Sidebar title over decal
 local SidebarTitle = Instance.new("TextLabel")
@@ -1015,6 +1156,10 @@ UserInputService.InputChanged:Connect(function(input)
 		)
 	end
 end)
+
+local TestTab1 = Window:CreateTab("MAIN")
+local TestTab2 = Window:CreateTab("VISUALS")
+local TestTab3 = Window:CreateTab("SETTINGS")
   
 Window.ScreenGui = ScreenGui
 Window.Main = Main
